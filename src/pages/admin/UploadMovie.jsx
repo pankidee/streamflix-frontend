@@ -29,7 +29,6 @@ export default function UploadMovie() {
       return;
     }
 
-    npm 
     if (!vj) {
       setError('Please select a VJ');
       return;
@@ -60,7 +59,6 @@ export default function UploadMovie() {
     <div>
       <Navbar />
       <main>
-
         <h1>Upload Movie</h1>
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit} className="admin-form">
@@ -89,31 +87,10 @@ export default function UploadMovie() {
 
           <label>Video File</label>
           <input type="file" accept="video/*" onChange={(e) => setVideoFile(e.target.files[0])} required />
-   
-<div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
-  <Link to="/admin/upload" className="btn-primary">+ Upload Movie</Link>
-  <Link to="/admin/series/new" className="btn-primary">+ Create Series</Link>
-</div>
-
-<h2 style={{ marginTop: '2rem' }}>Series</h2>
-{seriesList.length === 0 && <p className="empty-state">No series yet.</p>}
-<div className="admin-cards-mobile">
-  {seriesList.map((s) => (
-    <div key={s.id} className="admin-card"> 
-      <img src={s.posterUrl || '/poster-placeholder.svg'} alt={s.title} />
-      <div>
-        <p className="movie-title">{s.title}</p>
-        <p className="movie-vj">{s.vj}</p>
-      </div>
-      <Link to={`/admin/series/${s.id}/episodes`} className="btn-secondary">Manage Episodes</Link>
-    </div>
-  ))}
-</div>
 
           <button type="submit" disabled={uploading}>
             {uploading ? 'Uploading & converting... this can take a while' : 'Upload'}
           </button>
-
         </form>
       </main>
     </div>

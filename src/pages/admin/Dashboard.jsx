@@ -8,13 +8,12 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 export default function Dashboard() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [seriesList, setSeriesList] = useState([]);
   const navigate = useNavigate();
 
-const [seriesList, setSeriesList] = useState([]);
-
-useEffect(() => {
-  api.get('/api/series', { params: { all: true } }).then((res) => setSeriesList(res.data));
-}, []);
+  useEffect(() => {
+    api.get('/api/series', { params: { all: true } }).then((res) => setSeriesList(res.data));
+  }, []);
 
   const loadMovies = () => {
     setLoading(true);
@@ -42,7 +41,10 @@ useEffect(() => {
       <main>
         <div className="admin-header">
           <h1>Admin Dashboard</h1>
-          <Link to="/admin/upload" className="btn-primary">+ Upload Movie</Link>
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            <Link to="/admin/upload" className="btn-primary">+ Upload Movie</Link>
+            <Link to="/admin/series/new" className="btn-primary">+ Create Series</Link>
+          </div>
         </div>
 
         {loading ? (
@@ -93,6 +95,27 @@ useEffect(() => {
             </div>
           </>
         )}
+
+        <h2 style={{ marginTop: '2.5rem' }}>Series</h2>
+        {seriesList.length === 0 && <p className="empty-state">No series yet.</p>}
+        <div className="admin-cards-mobile">
+          {seriesList.map((s) => (
+            <div key={s.id} className="admin-card">
+              <img
+                src={s.posterUrl || '/poster-placeholder.svg'}
+                alt={s.title}
+                onError={(e) => { e.target.src = '/poster-placeholder.svg'; }}
+              />
+              <div className="admin-card-info">
+                <p className="admin-card-title">{s.title}</p>
+                <p className="admin-card-meta">{s.vj || '—'}</p>
+                <div className="admin-card-actions">
+                  <Link to={`/admin/series/${s.id}/episodes`} className="btn-secondary">Manage Episodes</Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </main>
     </div>
   );
