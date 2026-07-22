@@ -28,6 +28,8 @@ export default function UploadMovie() {
       setError('Please choose a video file');
       return;
     }
+
+    npm 
     if (!vj) {
       setError('Please select a VJ');
       return;
