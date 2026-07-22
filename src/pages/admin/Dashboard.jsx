@@ -10,6 +10,12 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+const [seriesList, setSeriesList] = useState([]);
+
+useEffect(() => {
+  api.get('/api/series', { params: { all: true } }).then((res) => setSeriesList(res.data));
+}, []);
+
   const loadMovies = () => {
     setLoading(true);
     api.get('/api/movies')

@@ -6,7 +6,7 @@ export default function MovieCard({ movie }) {
   };
 
   return (
-    <Link to={`/watch/${movie.id}`} className="movie-card">
+    <Link to={`/movie/${movie.id}`} className="movie-card">
       <img
         src={movie.posterUrl || '/poster-placeholder.svg'}
         alt={movie.title}

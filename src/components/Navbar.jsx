@@ -65,6 +65,7 @@ export default function Navbar() {
         </button>
 
         <Link to="/history" className="navbar-dropdown-item" onClick={closeMenu}>My List</Link>
+        <Link to="/series" className="navbar-dropdown-item" onClick={closeMenu}>Series</Link>
 
         {user?.isAdmin && (
           <Link to="/admin" className="navbar-dropdown-item" onClick={closeMenu}>Admin</Link>

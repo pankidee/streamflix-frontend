@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
-import MovieRow from '../components/MovieRow';
-import HeroBanner from '../components/HeroBanner';
+import MovieCard from '../components/MovieCard';
+import Pagination from '../components/Pagination';
 import LoadingSpinner from '../components/LoadingSpinner';
 import Footer from '../components/Footer';
 import { useVJ } from '../context/VJContext';
@@ -11,31 +11,28 @@ import { useVJ } from '../context/VJContext';
 export default function VJMovies() {
   const { vjName } = useParams();
   const { chooseVj } = useVJ();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get('page')) || 1;
+
   const [movies, setMovies] = useState([]);
-  const [featured, setFeatured] = useState(null);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     chooseVj(vjName);
     setLoading(true);
-    const params = { vj: vjName };
-    Promise.all([
-      api.get('/api/movies', { params }),
-      api.get('/api/movies/featured', { params }),
-    ])
-      .then(([moviesRes, featuredRes]) => {
-        setMovies(moviesRes.data);
-        setFeatured(featuredRes.data);
+    api.get('/api/movies', { params: { vj: vjName, page, limit: 10 } })
+      .then((res) => {
+        setMovies(res.data.movies);
+        setTotalPages(res.data.totalPages);
       })
       .finally(() => setLoading(false));
-  }, [vjName]);
+  }, [vjName, page]);
 
-  const byGenre = movies.reduce((acc, movie) => {
-    const genre = movie.genre || 'Other';
-    acc[genre] = acc[genre] || [];
-    acc[genre].push(movie);
-    return acc;
-  }, {});
+  const handlePageChange = (p) => {
+    setSearchParams({ page: p });
+    window.scrollTo(0, 0);
+  };
 
   return (
     <div>
@@ -43,16 +40,14 @@ export default function VJMovies() {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <>
-          <HeroBanner movie={featured} />
-          <main>
-            <h1 className="vj-page-title">{vjName}</h1>
-            {movies.length === 0 && <p className="empty-state">No movies yet for {vjName}.</p>}
-            {Object.entries(byGenre).map(([genre, list]) => (
-              <MovieRow key={genre} title={genre} movies={list} />
-            ))}
-          </main>
-        </>
+        <main>
+          <h1 className="vj-page-title">{vjName}</h1>
+          {movies.length === 0 && <p className="empty-state">No movies yet for {vjName}.</p>}
+          <div className="search-grid">
+            {movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+          </div>
+          <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
+        </main>
       )}
       <Footer />
     </div>
