@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import VideoPlayer from '../components/VideoPlayer';
+import RelatedMovies from '../components/RelatedMovies';
 
 export default function Watch() {
   const { id } = useParams();
@@ -31,6 +32,7 @@ export default function Watch() {
           onProgress={handleProgress}
         />
       )}
+      {streamData && <RelatedMovies movieId={id} />}
     </div>
   );
 }
