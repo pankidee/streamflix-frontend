@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="footer-grid">
         <div className="footer-col">
-          <h3 className="brand">StreamFlix</h3>
+          <h3 className="brand">VjPlus</h3>
           <p className="footer-tagline">Stream your favorite VJ-hosted movies, anytime.</p>
         </div>
 
@@ -30,7 +30,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} StreamFlix. All rights reserved @Pankidee #Developer.</p>
+        <p>&copy; {new Date().getFullYear()} VjPlus. All rights reserved @Pankidee #Developer.</p>
       </div>
     </footer>
   );

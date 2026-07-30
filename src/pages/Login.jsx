@@ -24,7 +24,7 @@ export default function Login() {
     <div className="auth-page">
       <div className="auth-page-overlay">
         <form onSubmit={handleSubmit} className="auth-form">
-          <h1 className="auth-brand">StreamFlix</h1>
+          <h1 className="auth-brand">VjPlus</h1>
           <h2>Log in</h2>
           {error && <p className="error">{error}</p>}
           <input type="email" placeholder="Email" value={email}

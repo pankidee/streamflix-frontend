@@ -25,7 +25,7 @@ export default function Signup() {
     <div className="auth-page">
       <div className="auth-page-overlay">
         <form onSubmit={handleSubmit} className="auth-form">
-          <h1 className="auth-brand">StreamFlix</h1>
+          <h1 className="auth-brand">VjPlus</h1>
           <h2>Sign up</h2>
           {error && <p className="error">{error}</p>}
           <input type="text" placeholder="Name" value={name}

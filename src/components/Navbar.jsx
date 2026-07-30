@@ -32,7 +32,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="navbar">
-        <Link to="/home" className="brand" onClick={closeMenu}>StreamFlix</Link>
+        <Link to="/home" className="brand" onClick={closeMenu}>VjPlus</Link>
         {user && <span className="navbar-user-inline">{user.name}</span>}
 
         <button

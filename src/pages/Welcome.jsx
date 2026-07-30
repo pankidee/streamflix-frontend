@@ -9,7 +9,7 @@ export default function Welcome() {
     <div className="welcome-page">
       <div className="welcome-overlay">
         <div className="welcome-content">
-          <h1 className="welcome-brand">StreamFlix</h1>
+          <h1 className="welcome-brand">VjPlus</h1>
           <p className="welcome-text">
             Welcome{user?.name ? `, ${user.name}` : ''}. Your favorite VJ-hosted movies are ready whenever you are.
           </p>
